@@ -1,0 +1,10 @@
+.setting {
+    margin: 60px auto;
+    position: relative;
+    width: 100%;
+}
+
+.setting a:hover {
+    background-color: #07a3c2;
+    background-image: linear-gradient(#07a3c2, #0dcaf0, #07a3c2);
+}

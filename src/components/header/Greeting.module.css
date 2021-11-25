@@ -1,0 +1,8 @@
+.greeting {
+    display: flex;
+    justify-content: space-between;
+}
+
+.greeting .welcometxt {
+    padding-left: 55%;
+}

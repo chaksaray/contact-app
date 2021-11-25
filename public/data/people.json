@@ -1,0 +1,126 @@
+{
+    "people": [
+        {
+            "id": 1,
+            "name": "Name One",
+            "city": "Poland, Gdansk",
+            "avatar": "/assets/images/img1.jpg",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "Frontend developer",
+            "isFavourite": false,
+            "isContact": false
+        },
+        {
+            "id": 2,
+            "name": "Name Two",
+            "city": "Ukraine, Lviv",
+            "avatar": "/assets/images/img2.jpg",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link"
+            },
+            "company": "Soft solutions",
+            "position": "Backend developer",
+            "isFavourite": false,
+            "isContact": true
+        },
+        {
+            "id": 3,
+            "name": "Name Three",
+            "city": "Belarus, Minsk",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "QA engineer",
+            "isFavourite": true,
+            "isContact": true
+        },
+        {
+            "id": 4,
+            "name": "Name Four",
+            "city": "Belarus, Minsk",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "QA engineer",
+            "isFavourite": true,
+            "isContact": false
+        },
+        {
+            "id": 5,
+            "name": "Name Five",
+            "city": "Poland, Gdansk",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "Frontend developer",
+            "isFavourite": false,
+            "isContact": false
+        },
+        {
+            "id": 6,
+            "name": "Name Six",
+            "city": "Ukraine, Lviv",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link"
+            },
+            "company": "Soft solutions",
+            "position": "Backend developer",
+            "isFavourite": false,
+            "isContact": true
+        },
+        {
+            "id": 7,
+            "name": "Name Seven",
+            "city": "Belarus, Minsk",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "QA engineer",
+            "isFavourite": true,
+            "isContact": true
+        },
+        {
+            "id": 8,
+            "name": "Name Eight",
+            "city": "Belarus, Minsk",
+            "avatar": "/assets/images/img3.png",
+            "social_networks": {
+                "facebook": "link",
+                "twitter": "link”",
+                "instagram": "link",
+                "linkedin": "link"
+            },
+            "company": "Soft solutions",
+            "position": "QA engineer",
+            "isFavourite": true,
+            "isContact": false
+        }
+    ]
+}

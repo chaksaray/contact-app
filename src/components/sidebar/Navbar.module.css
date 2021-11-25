@@ -1,0 +1,19 @@
+.navbar {
+    margin: 20px auto;
+    margin-top: 125px;
+}
+
+.navbar div a {
+    font-size: 28px;
+}
+
+.navbar div a:hover,
+.navbar div a:active {
+    font-size: 28px;
+    background-color: #07a3c2;
+    background-image: linear-gradient(#07a3c2, #0dcaf0, #07a3c2);
+}
+
+.navbar div a svg {
+    margin-right: 10px;
+}
