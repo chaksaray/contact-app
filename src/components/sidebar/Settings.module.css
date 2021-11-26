@@ -4,7 +4,9 @@
     width: 100%;
 }
 
-.setting a:hover {
+.setting a:hover,
+.setting a:active,
+.setting a.active {
     background-color: #07a3c2;
     background-image: linear-gradient(#07a3c2, #0dcaf0, #07a3c2);
 }

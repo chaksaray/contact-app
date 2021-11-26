@@ -16,3 +16,14 @@ body {
 html {
     font-family: 'Noto Sans JP', sans-serif;
 }
+
+.primary-color {
+    color: #07a3c2;
+    background: linear-gradient(#07a3c2, #0dcaf0, #07a3c2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.inactive-color {
+    color: rgb(204, 199, 199);
+}

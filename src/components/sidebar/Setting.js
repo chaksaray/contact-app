@@ -1,21 +1,30 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Nav } from 'react-bootstrap';
 import { BsGear, BsBoxArrowRight } from 'react-icons/bs';
 import styles from './Settings.module.css';
 
 const Setting = () => {
+    const itemClasses = 'text-white nav-link text-uppercase';
     return (
-        <div className={styles.setting}>
+        <nav className={styles.setting}>
             <Nav className="flex-column">
-                <Nav.Link href="/setting" className="text-white">
-                    <BsGear /> SETTINGS
-                </Nav.Link>
-                <Nav.Link href="/signout" className="text-white">
-                    <BsBoxArrowRight /> SIGN OUT
+                <NavLink
+                    to="settings"
+                    className={(navData) =>
+                        navData.isActive
+                            ? `${itemClasses} ${styles.active}`
+                            : itemClasses
+                    }
+                >
+                    <BsGear /> settings
+                </NavLink>
+                <Nav.Link className={itemClasses}>
+                    <BsBoxArrowRight /> Sign up
                 </Nav.Link>
             </Nav>
-        </div>
+        </nav>
     );
 };
 

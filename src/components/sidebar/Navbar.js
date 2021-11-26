@@ -1,41 +1,67 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Nav } from 'react-bootstrap';
 import {
-    BsJournalBookmark,
-    BsHeart,
-    BsHouseDoor,
-    BsJournalText,
-    BsPerson,
+	BsJournalBookmark,
+	BsHeart,
+	BsHouseDoor,
+	BsJournalText,
+	BsPerson,
 } from 'react-icons/bs';
 import styles from './Navbar.module.css';
 
 const NavBar = () => {
-    return (
-        <div className={styles.navbar}>
-            <Nav defaultActiveKey="/home" className="flex-column">
-                <Nav.Link href="/home" className="text-white">
-                    <BsHouseDoor />
-                    HOME
-                </Nav.Link>
-                <Nav.Link href="/contact" className="text-white">
-                    <BsJournalBookmark /> CONTACTS
-                </Nav.Link>
-                <Nav.Link href="/favorite" className="text-white">
-                    <BsHeart />
-                    FAVORITES
-                </Nav.Link>
-                <Nav.Link href="/people" className="text-white">
-                    <BsPerson />
-                    PEOPLE
-                </Nav.Link>
-                <Nav.Link href="/company" className="text-white">
-                    <BsJournalText />
-                    COMPANIES
-                </Nav.Link>
-            </Nav>
-        </div>
-    );
+	const navItems = [
+		{
+			path: '/home',
+			name: 'home',
+			icon: <BsHouseDoor />,
+		},
+		{
+			path: '/contacts',
+			name: 'Contacts',
+			icon: <BsJournalBookmark />,
+		},
+		{
+			path: '/favorites',
+			name: 'favorites',
+			icon: <BsHeart />,
+		},
+		{
+			path: '/people',
+			name: 'people',
+			icon: <BsPerson />,
+		},
+		{
+			path: '/companies',
+			name: 'companies',
+			icon: <BsJournalText />,
+		},
+	];
+
+	const menuItemClasses = 'text-white nav-link text-uppercase';
+
+	return (
+		<nav className={styles.navbar}>
+			<Nav className="flex-column">
+				{navItems.map((item) => (
+					<NavLink
+						key={item.name}
+						className={(navData) =>
+							navData.isActive
+								? `${menuItemClasses} ${styles.active}`
+								: menuItemClasses
+						}
+						to={item.path}
+					>
+						{item.icon}
+						{item.name}
+					</NavLink>
+				))}
+			</Nav>
+		</nav>
+	);
 };
 
 export default NavBar;

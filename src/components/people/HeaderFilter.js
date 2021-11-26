@@ -5,10 +5,10 @@ import styles from './HeaderFilter.module.css';
 
 const HeaderFilter = (props) => {
     return (
-        <header className={styles.headerfilter}>
+        <div className={styles.filter}>
             <People />
             <CityFilter />
-        </header>
+        </div>
     );
 };
 

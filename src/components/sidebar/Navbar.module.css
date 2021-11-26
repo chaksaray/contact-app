@@ -8,7 +8,8 @@
 }
 
 .navbar div a:hover,
-.navbar div a:active {
+.navbar div a:active,
+.navbar div a.active {
     font-size: 28px;
     background-color: #07a3c2;
     background-image: linear-gradient(#07a3c2, #0dcaf0, #07a3c2);
