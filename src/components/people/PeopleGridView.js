@@ -11,7 +11,7 @@ import {
     BsInstagram,
 } from 'react-icons/bs';
 
-const PeopleGridView = (props) => {
+const PeopleGridView = () => {
     return (
         <Fragment>
             <CardGroup>
