@@ -1,19 +1,20 @@
 .social {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
-.social button svg {
-    margin-left: -8px;
-    top: -8px;
-    position: relative;
-}
-
-.social button {
-    color: #07a3c2 !important;
-    border-color: #07a3c2;
+.social a svg {
+	top: -2px;
+	position: relative;
 }
 
-.social button:hover {
-    background-color: #07a3c2 !important;
-    color: white !important;
-    border-color: #07a3c2;
+.social a {
+	color: #07a3c2 !important;
+	border-color: #07a3c2;
+	border-radius: 50%;
+	margin: 2px;
+}
+
+.social a:hover {
+	background-color: #07a3c2 !important;
+	color: white !important;
+	border-color: #07a3c2;
 }
