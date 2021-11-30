@@ -22,3 +22,15 @@ export const transformSocialLink = (socialNetworks) => {
 	}
 	return transformedSocialLink;
 };
+
+export const extractUniqueValueArray = (items) => {
+	const newArr = [];
+
+	for (const value of items) {
+		if (newArr.indexOf(value) === -1) {
+			newArr.push(value);
+		}
+	}
+
+	return newArr;
+};

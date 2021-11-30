@@ -47,3 +47,9 @@ div.card-group > *:last-child {
 .content > div.card-group:first-child > div.card {
 	border-top: none;
 }
+
+a:focus,
+button:focus,
+input:focus {
+	outline: none;
+}

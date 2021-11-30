@@ -6,15 +6,20 @@ const peopleSlice = createSlice({
 		originPeople: [],
 		items: [],
 		isGridView: true,
+		cities: [],
 	},
 	reducers: {
+		listCity(state, action) {
+			state.cities = action.payload;
+		},
 		listPeople(state, action) {
 			state.items = action.payload;
 			state.originPeople = action.payload;
 		},
 		filterPeopleByCity(state, action) {
-			state.items = state.items.filter(
-				(item) => item.id === action.payload,
+			state.items = state.originPeople.filter(
+				(item) =>
+					item.city === action.payload || action.payload === 'all',
 			);
 		},
 		searchPeople(state, action) {

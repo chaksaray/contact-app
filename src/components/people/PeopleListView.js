@@ -5,7 +5,6 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 
 const PeopleListView = () => {
 	const peopleItems = useSelector((state) => state.people.items);
-
 	const status = useSelector((state) => state.ui.peopleStatus);
 	if (status) {
 		if (status === 'pending') {

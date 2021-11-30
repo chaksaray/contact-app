@@ -4,6 +4,7 @@ import { DOMAIN } from '../lib/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { peopleActions } from '../store/people-slice';
 import { uiActions } from '../store/ui-slice';
+import { extractUniqueValueArray } from '../lib/helper';
 
 import HeaderFilter from '../components/people/HeaderFilter';
 import PeopleGridView from '../components/people/PeopleGridView';
@@ -20,8 +21,12 @@ const People = () => {
 			.get(`${DOMAIN}/people.json`)
 			.then((response) => {
 				const people = response.data.people;
-
 				dispatch(peopleActions.listPeople(people));
+
+				let cities = people.map((item) => item.city);
+				cities = extractUniqueValueArray(cities);
+
+				dispatch(peopleActions.listCity(cities));
 				dispatch(uiActions.setPeopleStatus('success'));
 			})
 			.catch(() => {
