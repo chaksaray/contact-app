@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { DOMAIN } from '../lib/constant';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ const People = () => {
 	const dispatch = useDispatch();
 	const isGridView = useSelector((state) => state.people.isGridView);
 
-	const getPeople = () => {
+	const getPeople = useCallback(() => {
 		dispatch(uiActions.setPeopleStatus('pending'));
 
 		axios
@@ -27,7 +27,7 @@ const People = () => {
 			.catch(() => {
 				dispatch(uiActions.setPeopleStatus('error'));
 			});
-	};
+	}, []);
 
 	useEffect(() => {
 		getPeople();

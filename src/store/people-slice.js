@@ -3,12 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const peopleSlice = createSlice({
 	name: 'people',
 	initialState: {
+		originPeople: [],
 		items: [],
 		isGridView: true,
 	},
 	reducers: {
 		listPeople(state, action) {
 			state.items = action.payload;
+			state.originPeople = action.payload;
 		},
 		filterPeopleByCity(state, action) {
 			state.items = state.items.filter(
@@ -16,8 +18,10 @@ const peopleSlice = createSlice({
 			);
 		},
 		searchPeople(state, action) {
-			state.items = state.items.filter(
-				(item) => item.name === action.payload,
+			state.items = state.originPeople.filter(
+				(item) =>
+					item.name.toLowerCase().includes(action.payload) ||
+					action.payload === '',
 			);
 		},
 		addToContact() {},
