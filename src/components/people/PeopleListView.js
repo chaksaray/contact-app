@@ -4,7 +4,7 @@ import PeopleListViewItem from './PeopleListViewItem';
 import LoadingSpinner from '../UI/LoadingSpinner';
 
 const PeopleListView = () => {
-	const peopleItems = useSelector((state) => state.people.items);
+	const peopleItems = useSelector((state) => state.people.people);
 	const status = useSelector((state) => state.ui.peopleStatus);
 	if (status) {
 		if (status === 'pending') {
@@ -27,7 +27,7 @@ const PeopleListView = () => {
 	return (
 		<div className="content">
 			{peopleItems.map((people) => (
-				<PeopleListViewItem {...people} key={people.id} />
+				<PeopleListViewItem people={people} key={people.id} />
 			))}
 		</div>
 	);

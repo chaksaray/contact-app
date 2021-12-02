@@ -1,8 +1,10 @@
-import Socials from './Socials';
-import SocialButton from '../UI/SocialButton';
 import { transformSocialLink } from '../../lib/helper';
+import { useDispatch } from 'react-redux';
+import { peopleActions } from '../../store/people-slice';
 
 import { Card, Image } from 'react-bootstrap';
+import Socials from './Socials';
+import SocialButton from '../UI/SocialButton';
 import {
 	BsFacebook,
 	BsLinkedin,
@@ -13,6 +15,7 @@ import {
 import AddDeleteButton from '../UI/AddDeleteButton';
 
 const PeopleGridViewItem = (props) => {
+	const dispatch = useDispatch();
 	const people = props.people;
 	const transformedSocialLink = transformSocialLink(people.social_networks);
 
@@ -25,6 +28,14 @@ const PeopleGridViewItem = (props) => {
 			{item.id === 'skype' && <BsSkype />}
 		</SocialButton>
 	));
+
+	const addToFavoriteHandler = () => {
+		dispatch(peopleActions.addToFavorite(people));
+	};
+
+	const deleteFromFavoriteHandler = () => {
+		dispatch(peopleActions.deleteFromFavorite(people.id));
+	};
 
 	return (
 		<Card className="text-center" style={{ borderBottom: 'none' }}>
@@ -47,13 +58,19 @@ const PeopleGridViewItem = (props) => {
 				)}
 
 				{people.isContact && people.isFavorite && (
-					<AddDeleteButton variant="outline-danger">
+					<AddDeleteButton
+						variant="outline-danger"
+						onClick={deleteFromFavoriteHandler}
+					>
 						delete from favorites
 					</AddDeleteButton>
 				)}
 
 				{people.isContact && !people.isFavorite && (
-					<AddDeleteButton variant="outline-primary">
+					<AddDeleteButton
+						variant="outline-primary"
+						onClick={addToFavoriteHandler}
+					>
 						add to favorites
 					</AddDeleteButton>
 				)}

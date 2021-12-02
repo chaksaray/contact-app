@@ -7,6 +7,7 @@ const AddDeleteButton = (props) => {
 				variant={`${props.variant} text-uppercase`}
 				size="sm"
 				style={{ borderRadius: '25px' }}
+				onClick={props.onClick}
 			>
 				{props.children}
 			</Button>

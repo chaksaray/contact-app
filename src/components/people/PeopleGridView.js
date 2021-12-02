@@ -6,7 +6,7 @@ import PeopleGridViewItem from './PeopleGridViewItem';
 import LoadingSpinner from '../UI/LoadingSpinner';
 
 const PeopleGridView = () => {
-	let peopleItems = useSelector((state) => state.people.items);
+	let peopleItems = useSelector((state) => state.people.people);
 	const transformedPeopleItems = transformPeople(peopleItems);
 
 	const status = useSelector((state) => state.ui.peopleStatus);

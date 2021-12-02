@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 import { transformSocialLink } from '../../lib/helper';
+import { useDispatch } from 'react-redux';
+import { peopleActions } from '../../store/people-slice';
 
 import Socials from './Socials';
 import SocialButton from '../UI/SocialButton';
@@ -16,6 +18,8 @@ import {
 import styles from './PeopleListViewItem.module.css';
 
 const PeopleListViewItem = (props) => {
+	const dispatch = useDispatch();
+	const people = props.people;
 	const tranformedSocialLinks = transformSocialLink(props.social_networks);
 
 	const socials = tranformedSocialLinks.map((item) => (
@@ -28,6 +32,14 @@ const PeopleListViewItem = (props) => {
 		</SocialButton>
 	));
 
+	const addToFavoriteHandler = () => {
+		dispatch(peopleActions.addToFavorite(people));
+	};
+
+	const deleteFromFavoriteHandler = () => {
+		dispatch(peopleActions.deleteFromFavorite(people.id));
+	};
+
 	return (
 		<Fragment>
 			<Row className={styles['div-row']} xs="auto">
@@ -35,7 +47,7 @@ const PeopleListViewItem = (props) => {
 					<Card style={{ border: 'none' }}>
 						<Card.Body>
 							<Image
-								src={props.avatar}
+								src={people.avatar}
 								roundedCircle
 								style={{ width: '8rem' }}
 							/>
@@ -46,35 +58,41 @@ const PeopleListViewItem = (props) => {
 					<Card style={{ border: 'none' }}>
 						<Card.Body>
 							<Card.Title className="primary-color">
-								{props.name}
+								{people.name}
 							</Card.Title>
-							<Card.Text>{props.position}</Card.Text>
+							<Card.Text>{people.position}</Card.Text>
 							<Socials>{socials}</Socials>
-							<Card.Text>{props.city}</Card.Text>
+							<Card.Text>{people.city}</Card.Text>
 						</Card.Body>
 					</Card>
 				</Col>
 				<Col>
 					<div className="mt-4">
-						{props.isContact && (
+						{people.isContact && (
 							<AddDeleteButton variant="outline-danger">
 								delete from constacts
 							</AddDeleteButton>
 						)}
 
-						{props.isContact && props.isFavorite && (
-							<AddDeleteButton variant="outline-danger">
+						{people.isContact && people.isFavorite && (
+							<AddDeleteButton
+								variant="outline-danger"
+								onClick={deleteFromFavoriteHandler}
+							>
 								delete from favorites
 							</AddDeleteButton>
 						)}
 
-						{props.isContact && !props.isFavorite && (
-							<AddDeleteButton variant="outline-primary">
+						{people.isContact && !people.isFavorite && (
+							<AddDeleteButton
+								variant="outline-primary"
+								onClick={addToFavoriteHandler}
+							>
 								add to favorites
 							</AddDeleteButton>
 						)}
 
-						{!props.isContact && !props.isFavorite && (
+						{!people.isContact && !people.isFavorite && (
 							<AddDeleteButton variant="outline-primary">
 								add to contacts
 							</AddDeleteButton>
