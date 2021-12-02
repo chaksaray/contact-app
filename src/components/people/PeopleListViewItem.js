@@ -40,6 +40,14 @@ const PeopleListViewItem = (props) => {
 		dispatch(peopleActions.deleteFromFavorite(people.id));
 	};
 
+	const addToContactHandler = () => {
+		dispatch(peopleActions.addToContact(people));
+	};
+
+	const deleteFromContactHandler = () => {
+		dispatch(peopleActions.deleteFromContact(people.id));
+	};
+
 	return (
 		<Fragment>
 			<Row className={styles['div-row']} xs="auto">
@@ -69,7 +77,10 @@ const PeopleListViewItem = (props) => {
 				<Col>
 					<div className="mt-4">
 						{people.isContact && (
-							<AddDeleteButton variant="outline-danger">
+							<AddDeleteButton
+								variant="outline-danger"
+								onClick={deleteFromContactHandler}
+							>
 								delete from constacts
 							</AddDeleteButton>
 						)}
@@ -93,7 +104,10 @@ const PeopleListViewItem = (props) => {
 						)}
 
 						{!people.isContact && !people.isFavorite && (
-							<AddDeleteButton variant="outline-primary">
+							<AddDeleteButton
+								variant="outline-primary"
+								onClick={addToContactHandler}
+							>
 								add to contacts
 							</AddDeleteButton>
 						)}

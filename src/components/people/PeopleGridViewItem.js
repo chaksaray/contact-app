@@ -37,6 +37,14 @@ const PeopleGridViewItem = (props) => {
 		dispatch(peopleActions.deleteFromFavorite(people.id));
 	};
 
+	const addToContactHandler = () => {
+		dispatch(peopleActions.addToContact(people));
+	};
+
+	const deleteFromContactHandler = () => {
+		dispatch(peopleActions.deleteFromContact(people.id));
+	};
+
 	return (
 		<Card className="text-center" style={{ borderBottom: 'none' }}>
 			<Card.Body>
@@ -52,7 +60,10 @@ const PeopleGridViewItem = (props) => {
 				<Socials>{socials}</Socials>
 				<Card.Text>{people.city}</Card.Text>
 				{people.isContact && (
-					<AddDeleteButton variant="outline-danger">
+					<AddDeleteButton
+						variant="outline-danger"
+						onClick={deleteFromContactHandler}
+					>
 						delete from constacts
 					</AddDeleteButton>
 				)}
@@ -76,7 +87,10 @@ const PeopleGridViewItem = (props) => {
 				)}
 
 				{!people.isContact && !people.isFavorite && (
-					<AddDeleteButton variant="outline-primary">
+					<AddDeleteButton
+						variant="outline-primary"
+						onClick={addToContactHandler}
+					>
 						add to contacts
 					</AddDeleteButton>
 				)}

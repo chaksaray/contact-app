@@ -10,7 +10,7 @@
 	height: 64px;
 	margin: 8px;
 	border-radius: 50%;
-	border: 6px solid #07a3c2;
+	border: 6px solid;
 	border-color: #07a3c2 transparent #07a3c2 transparent;
 	animation: spinner 1.2s linear infinite;
 }
