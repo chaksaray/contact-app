@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getAllPeople } from '../lib/api';
 
 const peopleSlice = createSlice({
 	name: 'people',
@@ -15,6 +16,7 @@ const peopleSlice = createSlice({
 			state.cities = action.payload;
 		},
 		listPeople(state, action) {
+			getAllPeople();
 			state.people = action.payload;
 			state.originPeople = action.payload;
 		},

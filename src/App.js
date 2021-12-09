@@ -12,20 +12,20 @@ import NotFound from './pages/NotFound';
 import Layout from './components/layouts/Layout';
 
 function App() {
-    return (
-        <Layout>
-            <Routes>
-                <Route path="/" element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/contacts" element={<Contact />} />
-                <Route path="/favorites" element={<Favorite />} />
-                <Route path="/people" element={<People />} />
-                <Route path="/comapanies" element={<Company />} />
-                <Route path="/settings" element={<Setting />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </Layout>
-    );
+	return (
+		<Layout>
+			<Routes>
+				<Route path="/" element={<Navigate to="/home" />} />
+				<Route path="/home" element={<Home />} />
+				<Route path="/contacts" element={<Contact />} />
+				<Route path="/favorites" element={<Favorite />} />
+				<Route path="/people" element={<People />} />
+				<Route path="/comapanies" element={<Company />} />
+				<Route path="/settings" element={<Setting />} />
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</Layout>
+	);
 }
 
 export default App;

@@ -1,10 +1,6 @@
-import { Fragment, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import { DOMAIN } from '../lib/constant';
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { peopleActions } from '../store/people-slice';
-import { uiActions } from '../store/ui-slice';
-import { extractUniqueValueArray } from '../lib/helper';
+import { getPeopleData, getCityData } from '../store/actions/people';
 
 import HeaderFilter from '../components/people/HeaderFilter';
 import PeopleGridView from '../components/people/PeopleGridView';
@@ -14,29 +10,10 @@ const People = () => {
 	const dispatch = useDispatch();
 	const isGridView = useSelector((state) => state.people.isGridView);
 
-	const getPeople = useCallback(() => {
-		dispatch(uiActions.setPeopleStatus('pending'));
-
-		axios
-			.get(`${DOMAIN}/people.json`)
-			.then((response) => {
-				const people = response.data.people;
-				dispatch(peopleActions.listPeople(people));
-
-				let cities = people.map((item) => item.city);
-				cities = extractUniqueValueArray(cities);
-
-				dispatch(peopleActions.listCity(cities));
-				dispatch(uiActions.setPeopleStatus('success'));
-			})
-			.catch(() => {
-				dispatch(uiActions.setPeopleStatus('error'));
-			});
-	}, []);
-
 	useEffect(() => {
-		getPeople();
-	}, [getPeople]);
+		dispatch(getPeopleData());
+		dispatch(getCityData());
+	}, [dispatch]);
 
 	return (
 		<Fragment>
