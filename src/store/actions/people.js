@@ -1,4 +1,4 @@
-import { getAllPeople } from '../../lib/api';
+import { getAllPeople, addOnePerson } from '../../lib/api';
 import { peopleActions } from '../people-slice';
 import { uiActions } from '../ui-slice';
 import { extractUniqueValueArray } from '../../lib/helper';
@@ -25,6 +25,19 @@ export const getCityData = () => {
 			let cities = peopleData.map((item) => item.city);
 			cities = extractUniqueValueArray(cities);
 			dispatch(peopleActions.listCity(cities));
+
+			dispatch(uiActions.setPeopleStatus('success'));
+		} catch (error) {
+			dispatch(uiActions.setPeopleStatus('error'));
+		}
+	};
+};
+
+export const addPerson = (person) => {
+	return async (dispatch) => {
+		dispatch(uiActions.setPeopleStatus('pending'));
+		try {
+			await addOnePerson(person);
 
 			dispatch(uiActions.setPeopleStatus('success'));
 		} catch (error) {

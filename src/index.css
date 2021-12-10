@@ -53,3 +53,8 @@ button:focus,
 input:focus {
 	outline: none;
 }
+
+.invalid {
+	border: 1px solid red !important;
+	background-color: #fddddd !important;
+}

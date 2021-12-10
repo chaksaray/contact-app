@@ -1,0 +1,27 @@
+.float-button {
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	bottom: 40px;
+	right: 40px;
+	background-color: #07a3c2;
+	color: #fff;
+	border-radius: 50px;
+	text-align: center;
+	box-shadow: 2px 2px 3px #999;
+	text-decoration: none;
+}
+.float-button:active,
+.float-button:hover {
+	color: white;
+}
+
+.add-text {
+	top: 18px;
+	position: relative;
+}
+
+.add-text svg {
+	width: 20px;
+	height: 20px;
+}

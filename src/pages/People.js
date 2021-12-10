@@ -5,6 +5,7 @@ import { getPeopleData, getCityData } from '../store/actions/people';
 import HeaderFilter from '../components/people/HeaderFilter';
 import PeopleGridView from '../components/people/PeopleGridView';
 import PeopleListView from '../components/people/PeopleListView';
+import NewPeopleFloatButton from '../components/people/NewPeopleFloatButton';
 
 const People = () => {
 	const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const People = () => {
 			<HeaderFilter />
 			{isGridView && <PeopleGridView />}
 			{!isGridView && <PeopleListView />}
+			<NewPeopleFloatButton />
 		</Fragment>
 	);
 };
