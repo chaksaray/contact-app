@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { peopleActions } from '../../store/people-slice';
+import { peopleActions } from '../../store/reducers/people';
 import { useSelector } from 'react-redux';
 
 import { BsFillGridFill, BsDistributeVertical } from 'react-icons/bs';

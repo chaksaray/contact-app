@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { peopleActions } from '../../store/people-slice';
+import { peopleActions } from '../../store/reducers/people';
 
 import { Form } from 'react-bootstrap';
 import { BsFillGeoAltFill } from 'react-icons/bs';

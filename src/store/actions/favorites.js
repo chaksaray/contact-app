@@ -3,8 +3,8 @@ import {
 	addFavorite,
 	deleteFavorite,
 } from '../../lib/api/favorite';
-import { favoriteActions } from '../favorite-slice';
-import { uiActions } from '../ui-slice';
+import { favoriteActions } from '../reducers/favorite';
+import { uiActions } from '../reducers/ui';
 
 export const getFavoriteData = () => {
 	return async (dispatch) => {

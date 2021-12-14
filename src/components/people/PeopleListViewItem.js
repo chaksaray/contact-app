@@ -1,13 +1,13 @@
 import { Fragment } from 'react';
 import { transformSocialLink } from '../../lib/helper';
 import { useDispatch } from 'react-redux';
-import { peopleActions } from '../../store/people-slice';
 import { updateOnePeople } from '../../store/actions/people';
 import {
 	addOneFavorite,
 	deleteOneFavorite,
 } from '../../store/actions/favorites';
 import { IMAGE_DOMAIN } from '../../lib/constant';
+import { addOneContact, deleteOneContact } from '../../store/actions/contacts';
 
 import Socials from './Socials';
 import SocialButton from '../UI/SocialButton';
@@ -47,11 +47,19 @@ const PeopleListViewItem = (props) => {
 	};
 
 	const deleteFromFavoriteHandler = () => {
-		dispatch(peopleActions.deleteFromFavorite(people.id));
+		const newPeople = { ...people };
+		newPeople.isContact = false;
+
+		dispatch(deleteOneContact(newPeople.id));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const addToContactHandler = () => {
-		dispatch(peopleActions.addToContact(people));
+		const newPeople = { ...people };
+		newPeople.isContact = true;
+
+		dispatch(addOneContact(newPeople));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const deleteFromContactHandler = () => {

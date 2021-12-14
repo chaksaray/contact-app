@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { peopleActions } from '../../store/people-slice';
+import { peopleActions } from '../../store/reducers/people';
 
 import { Form } from 'react-bootstrap';
 import styles from './Search.module.css';

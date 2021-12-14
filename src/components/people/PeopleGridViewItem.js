@@ -1,12 +1,12 @@
 import { transformSocialLink } from '../../lib/helper';
 import { useDispatch } from 'react-redux';
-import { peopleActions } from '../../store/people-slice';
 import { updateOnePeople } from '../../store/actions/people';
 import {
 	addOneFavorite,
 	deleteOneFavorite,
 } from '../../store/actions/favorites';
 import { IMAGE_DOMAIN } from '../../lib/constant';
+import { addOneContact, deleteOneContact } from '../../store/actions/contacts';
 
 import { Card, Image } from 'react-bootstrap';
 import Socials from './Socials';
@@ -50,11 +50,18 @@ const PeopleGridViewItem = (props) => {
 	};
 
 	const addToContactHandler = () => {
-		dispatch(peopleActions.addToContact(people));
+		const newPeople = { ...people };
+		newPeople.isContact = true;
+
+		dispatch(addOneContact(newPeople));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const deleteFromContactHandler = () => {
-		dispatch(peopleActions.deleteFromContact(people.id));
+		const newPeople = { ...people };
+		newPeople.isContact = false;
+		dispatch(deleteOneContact(newPeople.id));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	return (

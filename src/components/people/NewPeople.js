@@ -185,7 +185,7 @@ const NewPeople = () => {
 		setIsEntereing(true);
 	};
 
-	const status = useSelector((state) => state.ui.peopleStatus);
+	const status = useSelector((state) => state.ui.addPeopleStatus);
 
 	window.onbeforeunload = function () {
 		if (isEntering) {

@@ -42,7 +42,3 @@ export async function updatePeople(people) {
 		throw new Error(data.message || 'Could not update people.');
 	}
 }
-
-export async function deletePeople(id) {
-	console.log(id);
-}

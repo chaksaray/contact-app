@@ -5,10 +5,8 @@ const peopleSlice = createSlice({
 	initialState: {
 		originPeople: [],
 		people: [],
-		isGridView: true,
 		cities: [],
-		favorites: [],
-		contacts: [],
+		isGridView: true,
 	},
 	reducers: {
 		listCity(state, action) {
@@ -43,32 +41,6 @@ const peopleSlice = createSlice({
 			const people = state.people;
 			people[indexPeople] = newPeople;
 			state.people = people;
-		},
-		addToContact(state, action) {
-			const contactPeople = { ...action.payload };
-			contactPeople.isContact = true;
-
-			const indexPeople = state.people.findIndex(
-				(item) => item.id === contactPeople.id,
-			);
-			const people = state.people;
-			people[indexPeople].isContact = true;
-			state.people = people;
-			state.contacts = [...state.contacts, contactPeople];
-		},
-		deleteFromContact(state, action) {
-			const id = action.payload;
-			const people = state.people;
-			const indexPeople = people.findIndex((item) => item.id === id);
-			people[indexPeople].isContact = false;
-			state.people = people;
-
-			const contacts = state.contacts;
-			const indexContactPeople = contacts.findIndex(
-				(item) => item.id === id,
-			);
-			contacts.splice(indexContactPeople, 1);
-			state.contacts = contacts;
 		},
 		viewAsGrid(state) {
 			state.isGridView = true;
