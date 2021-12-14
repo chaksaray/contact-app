@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addPerson } from '../../store/actions/people';
+import { addOnePeople } from '../../store/actions/people';
 import { useSelector } from 'react-redux';
 
 import { Form, Button, Col, Row } from 'react-bootstrap';
@@ -154,7 +154,7 @@ const NewPeople = () => {
 		uploadImage();
 
 		// post to people
-		dispatch(addPerson(person));
+		dispatch(addOnePeople(person));
 
 		setEnteredName('');
 		setEnteredPosition('');

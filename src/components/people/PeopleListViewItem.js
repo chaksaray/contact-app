@@ -2,6 +2,12 @@ import { Fragment } from 'react';
 import { transformSocialLink } from '../../lib/helper';
 import { useDispatch } from 'react-redux';
 import { peopleActions } from '../../store/people-slice';
+import { updateOnePeople } from '../../store/actions/people';
+import {
+	addOneFavorite,
+	deleteOneFavorite,
+} from '../../store/actions/favorites';
+import { IMAGE_DOMAIN } from '../../lib/constant';
 
 import Socials from './Socials';
 import SocialButton from '../UI/SocialButton';
@@ -23,7 +29,7 @@ const PeopleListViewItem = (props) => {
 	const tranformedSocialLinks = transformSocialLink(props.social_networks);
 
 	const socials = tranformedSocialLinks.map((item) => (
-		<SocialButton key={item.id + '' + props.id} link={item.link}>
+		<SocialButton key={item.id + '' + props.id} link={item.value}>
 			{item.id === 'facebook' && <BsFacebook />}
 			{item.id === 'linkedin' && <BsLinkedin />}
 			{item.id === 'twitter' && <BsTwitter />}
@@ -33,7 +39,11 @@ const PeopleListViewItem = (props) => {
 	));
 
 	const addToFavoriteHandler = () => {
-		dispatch(peopleActions.addToFavorite(people));
+		const newPeople = { ...people };
+		newPeople.isFavorite = true;
+
+		dispatch(addOneFavorite(newPeople));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const deleteFromFavoriteHandler = () => {
@@ -45,7 +55,10 @@ const PeopleListViewItem = (props) => {
 	};
 
 	const deleteFromContactHandler = () => {
-		dispatch(peopleActions.deleteFromContact(people.id));
+		const newPeople = { ...people };
+		newPeople.isFavorite = false;
+		dispatch(deleteOneFavorite(newPeople.id));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	return (
@@ -55,7 +68,7 @@ const PeopleListViewItem = (props) => {
 					<Card style={{ border: 'none' }}>
 						<Card.Body>
 							<Image
-								src={people.avatar}
+								src={`${IMAGE_DOMAIN}/${people.avatar}`}
 								roundedCircle
 								style={{ width: '8rem' }}
 							/>
@@ -68,7 +81,9 @@ const PeopleListViewItem = (props) => {
 							<Card.Title className="primary-color">
 								{people.name}
 							</Card.Title>
-							<Card.Text>{people.position}</Card.Text>
+							<Card.Text>
+								{people.company}, {people.position}
+							</Card.Text>
 							<Socials>{socials}</Socials>
 							<Card.Text>{people.city}</Card.Text>
 						</Card.Body>

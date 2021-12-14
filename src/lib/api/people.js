@@ -1,7 +1,7 @@
-import { FIREBASE_DOMAIN } from './constant';
+import { FIREBASE_DOMAIN } from '../constant';
 import axios from 'axios';
 
-export const getAllPeople = async () => {
+export async function getAllPeople() {
 	const response = await axios.get(`${FIREBASE_DOMAIN}/people.json`);
 	const data = response.data;
 
@@ -21,12 +21,28 @@ export const getAllPeople = async () => {
 	}
 
 	return transformedPeople;
-};
+}
 
-export const addOnePerson = async (people) => {
+export const addPeople = async (people) => {
 	const response = await axios.post(`${FIREBASE_DOMAIN}/people.json`, people);
 	const data = response.data;
 	if (response.statusText !== 'OK') {
 		throw new Error(data.message || 'Could not add people.');
 	}
 };
+
+export async function updatePeople(people) {
+	const response = await axios.put(
+		`${FIREBASE_DOMAIN}/people/${people.id}.json`,
+		people,
+	);
+	const data = response.data;
+
+	if (response.statusText !== 'OK') {
+		throw new Error(data.message || 'Could not update people.');
+	}
+}
+
+export async function deletePeople(id) {
+	console.log(id);
+}

@@ -1,6 +1,12 @@
 import { transformSocialLink } from '../../lib/helper';
 import { useDispatch } from 'react-redux';
 import { peopleActions } from '../../store/people-slice';
+import { updateOnePeople } from '../../store/actions/people';
+import {
+	addOneFavorite,
+	deleteOneFavorite,
+} from '../../store/actions/favorites';
+import { IMAGE_DOMAIN } from '../../lib/constant';
 
 import { Card, Image } from 'react-bootstrap';
 import Socials from './Socials';
@@ -18,9 +24,8 @@ const PeopleGridViewItem = (props) => {
 	const dispatch = useDispatch();
 	const people = props.people;
 	const transformedSocialLink = transformSocialLink(people.social_networks);
-
 	const socials = transformedSocialLink.map((item) => (
-		<SocialButton key={item.id + '' + people.id} link={item.link}>
+		<SocialButton key={item.id + '' + people.id} link={item.value}>
 			{item.id === 'facebook' && <BsFacebook />}
 			{item.id === 'linkedin' && <BsLinkedin />}
 			{item.id === 'twitter' && <BsTwitter />}
@@ -30,11 +35,18 @@ const PeopleGridViewItem = (props) => {
 	));
 
 	const addToFavoriteHandler = () => {
-		dispatch(peopleActions.addToFavorite(people));
+		const newPeople = { ...people };
+		newPeople.isFavorite = true;
+
+		dispatch(addOneFavorite(newPeople));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const deleteFromFavoriteHandler = () => {
-		dispatch(peopleActions.deleteFromFavorite(people.id));
+		const newPeople = { ...people };
+		newPeople.isFavorite = false;
+		dispatch(deleteOneFavorite(newPeople.id));
+		dispatch(updateOnePeople(newPeople));
 	};
 
 	const addToContactHandler = () => {
@@ -49,14 +61,16 @@ const PeopleGridViewItem = (props) => {
 		<Card className="text-center" style={{ borderBottom: 'none' }}>
 			<Card.Body>
 				<Image
-					src={people.avatar}
+					src={`${IMAGE_DOMAIN}/${people.avatar}`}
 					roundedCircle
 					style={{ width: '8rem' }}
 				/>
 				<Card.Title className="primary-color mt-2">
 					{people.name}
 				</Card.Title>
-				<Card.Text>{people.position}</Card.Text>
+				<Card.Text>
+					{people.company}, {people.position}
+				</Card.Text>
 				<Socials>{socials}</Socials>
 				<Card.Text>{people.city}</Card.Text>
 				{people.isContact && (

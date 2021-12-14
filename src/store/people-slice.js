@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllPeople } from '../lib/api';
 
 const peopleSlice = createSlice({
 	name: 'people',
@@ -16,7 +15,6 @@ const peopleSlice = createSlice({
 			state.cities = action.payload;
 		},
 		listPeople(state, action) {
-			getAllPeople();
 			state.people = action.payload;
 			state.originPeople = action.payload;
 		},
@@ -33,6 +31,19 @@ const peopleSlice = createSlice({
 					action.payload === '',
 			);
 		},
+		addPeople(state, action) {
+			const newPeople = { ...action.payload };
+			state.people = [...state.people, newPeople];
+		},
+		updatePeople(state, action) {
+			const newPeople = { ...action.payload };
+			const indexPeople = state.people.findIndex(
+				(item) => item.id === newPeople.id,
+			);
+			const people = state.people;
+			people[indexPeople] = newPeople;
+			state.people = people;
+		},
 		addToContact(state, action) {
 			const contactPeople = { ...action.payload };
 			contactPeople.isContact = true;
@@ -44,32 +55,6 @@ const peopleSlice = createSlice({
 			people[indexPeople].isContact = true;
 			state.people = people;
 			state.contacts = [...state.contacts, contactPeople];
-		},
-		addToFavorite(state, action) {
-			const favoritePeople = { ...action.payload };
-			favoritePeople.isFavorite = true;
-
-			const indexPeople = state.people.findIndex(
-				(item) => item.id === favoritePeople.id,
-			);
-			const people = state.people;
-			people[indexPeople].isFavorite = true;
-			state.people = people;
-			state.favorites = [...state.favorites, favoritePeople];
-		},
-		deleteFromFavorite(state, action) {
-			const id = action.payload;
-			const people = state.people;
-			const indexPeople = people.findIndex((item) => item.id === id);
-			people[indexPeople].isFavorite = false;
-			state.people = people;
-
-			const favorites = state.favorites;
-			const indexFavoritePeople = favorites.findIndex(
-				(item) => item.id === id,
-			);
-			favorites.splice(indexFavoritePeople, 1);
-			state.favorites = favorites;
 		},
 		deleteFromContact(state, action) {
 			const id = action.payload;

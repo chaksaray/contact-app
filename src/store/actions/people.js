@@ -1,4 +1,4 @@
-import { getAllPeople, addOnePerson } from '../../lib/api';
+import { getAllPeople, updatePeople, addPeople } from '../../lib/api/people';
 import { peopleActions } from '../people-slice';
 import { uiActions } from '../ui-slice';
 import { extractUniqueValueArray } from '../../lib/helper';
@@ -33,12 +33,25 @@ export const getCityData = () => {
 	};
 };
 
-export const addPerson = (person) => {
+export const addOnePeople = (people) => {
 	return async (dispatch) => {
 		dispatch(uiActions.setPeopleStatus('pending'));
 		try {
-			await addOnePerson(person);
+			await addPeople(people);
+			dispatch(peopleActions.addPeople(people));
+			dispatch(uiActions.setPeopleStatus('success'));
+		} catch (error) {
+			dispatch(uiActions.setPeopleStatus('error'));
+		}
+	};
+};
 
+export const updateOnePeople = (people) => {
+	return async (dispatch) => {
+		dispatch(uiActions.setPeopleStatus('pending'));
+		try {
+			await updatePeople(people);
+			dispatch(peopleActions.updatePeople(people));
 			dispatch(uiActions.setPeopleStatus('success'));
 		} catch (error) {
 			dispatch(uiActions.setPeopleStatus('error'));
