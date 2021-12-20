@@ -19,8 +19,7 @@ const People = () => {
 	return (
 		<Fragment>
 			<HeaderFilter />
-			{isGridView && <PeopleGridView />}
-			{!isGridView && <PeopleListView />}
+			{isGridView ? <PeopleGridView /> : <PeopleListView />}
 			<NewPeopleFloatButton />
 		</Fragment>
 	);
