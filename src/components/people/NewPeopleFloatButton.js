@@ -4,7 +4,7 @@ import styles from './NewPeopleFloatButton.module.css';
 
 const NewPeopleFloatButton = () => {
 	return (
-		<Link to="/new-people" className={styles['float-button']}>
+		<Link to="/people/new-people" className={styles['float-button']}>
 			<span className={styles['add-text']}>
 				<BsFillPencilFill />
 			</span>
