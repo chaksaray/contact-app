@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { addOnePeople } from '../../store/actions/people';
 import { useSelector } from 'react-redux';
@@ -7,35 +7,68 @@ import { Form, Button, Col, Row } from 'react-bootstrap';
 import styles from './NewPeople.module.css';
 import { isValidURL } from '../../lib/helper';
 
+const textFieldReducer = (state, action) => {
+	if (action.type === 'USER_INPUT') {
+		return {
+			value: action.value,
+			isTouch: true,
+			isValid: action.value.trim() !== '',
+		};
+	}
+	if (action.type === 'INPUT_BLUR') {
+		return {
+			value: state.value,
+			isTouch: true,
+			isValid: state.isValid,
+		};
+	}
+	return { value: '', isTouch: false, isValid: false };
+};
+
+const initialReducerState = {
+	value: '',
+	isTouch: false,
+	isValid: false,
+};
+
 const NewPeople = () => {
 	const [isEntering, setIsEntereing] = useState(false);
 	const dispatch = useDispatch();
-	const [enteredName, setEnteredName] = useState('');
-	const [enteredNameTouch, setEnteredNameTouch] = useState(false);
-	const enteredNameIsValid = enteredName.trim() !== '';
-	const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouch;
 
-	const [enteredPosition, setEnteredPosition] = useState('');
-	const [enteredPositionTouch, setEnteredPositionTouch] = useState(false);
-	const enteredPositionIsValid = enteredPosition.trim() !== '';
+	const [nameState, dispatchName] = useReducer(
+		textFieldReducer,
+		initialReducerState,
+	);
+
+	const [positionState, dispatchPosition] = useReducer(
+		textFieldReducer,
+		initialReducerState,
+	);
+
+	const [companySate, dispatchCompany] = useReducer(
+		textFieldReducer,
+		initialReducerState,
+	);
+
+	const [citySate, dispatchCity] = useReducer(
+		textFieldReducer,
+		initialReducerState,
+	);
+
+	const [profileImageSate, dispatchProfileImage] = useReducer(
+		textFieldReducer,
+		initialReducerState,
+	);
+
+	const nameInputIsInvalid = !nameState.isValid && nameState.isTouch;
 	const positionInputIsInvalid =
-		!enteredPositionIsValid && enteredPositionTouch;
+		!positionState.isValid && positionState.isTouch;
+	const companyInputIsInvalid = !companySate.isValid && companySate.isTouch;
+	const cityInputIsInvalid = !citySate.isValid && citySate.isTouch;
+	const profileImgIsInvalid =
+		!profileImageSate.isValid && profileImageSate.isTouch;
 
-	const [enteredCompany, setEnteredCompany] = useState('');
-	const [enteredCompanyTouch, setEnteredCompanyTouch] = useState(false);
-	const enteredCompanyIsValid = enteredCompany.trim() !== '';
-	const companyInputIsInvalid = !enteredCompanyIsValid && enteredCompanyTouch;
-
-	const [enteredCity, setEnteredCity] = useState('');
-	const [enteredCityTouch, setEnteredCityTouch] = useState(false);
-	const enteredCityIsValid = enteredCity.trim() !== '';
-	const cityInputIsInvalid = !enteredCityIsValid && enteredCityTouch;
-
-	const [profileImg, setProfileImg] = useState(null);
 	const [profileImgName, setProfileImgName] = useState('');
-	const [profileImgTouch, setProfileImgTouch] = useState(false);
-	const profileImgIsValid = profileImg != null;
-	const profileImgIsInvalid = !profileImgIsValid && profileImgTouch;
 
 	const [fbUrl, setFbUrl] = useState('');
 	const fbUrlIsValid = isValidURL(fbUrl) || fbUrl === '';
@@ -50,46 +83,49 @@ const NewPeople = () => {
 	const twtUrlIsValid = isValidURL(twtUrl) || twtUrl === '';
 
 	const nameOnChangeHandler = (event) => {
-		setEnteredName(event.target.value);
+		dispatchName({ type: 'USER_INPUT', value: event.target.value });
 	};
 
 	const nameOnBlurHandler = () => {
-		setEnteredNameTouch(true);
+		dispatchName({ type: 'INPUT_BLUR' });
 	};
 
 	const positionOnChangeHandler = (event) => {
-		setEnteredPosition(event.target.value);
+		dispatchPosition({ type: 'USER_INPUT', value: event.target.value });
 	};
 
 	const positionOnBlurHandler = () => {
-		setEnteredPositionTouch(true);
+		dispatchPosition({ type: 'INPUT_BLUR' });
 	};
 
 	const companyOnChangeHandler = (event) => {
-		setEnteredCompany(event.target.value);
+		dispatchCompany({ type: 'USER_INPUT', value: event.target.value });
 	};
 
 	const companyOnBlurHandler = () => {
-		setEnteredCompanyTouch(true);
+		dispatchCompany({ type: 'INPUT_BLUR' });
 	};
 
 	const cityOnChangeHandler = (event) => {
-		setEnteredCity(event.target.value);
+		dispatchCity({ type: 'USER_INPUT', value: event.target.value });
 	};
 
 	const cityOnBlurHandler = () => {
-		setEnteredCityTouch(true);
+		dispatchCity({ type: 'INPUT_BLUR' });
 	};
 
 	const profileOnChangeHandler = (event) => {
-		setProfileImg(event.target.files[0]);
+		dispatchProfileImage({
+			type: 'USER_INPUT',
+			value: event.target.files[0],
+		});
 		setProfileImgName(
 			event.target.files[0].name.replace(/\s+/g, '-').toLowerCase(),
 		);
 	};
 
 	const profileOnBlurHandler = () => {
-		setProfileImgTouch(true);
+		dispatchProfileImage({ type: 'INPUT_BLUR' });
 	};
 
 	const fbOnChangeHandler = (event) => {
@@ -105,13 +141,14 @@ const NewPeople = () => {
 	const twtOnChangeHandler = (event) => {
 		setTwtUrl(event.target.value);
 	};
+
 	let formIsValid = false;
 	if (
-		enteredNameIsValid &&
-		enteredPositionIsValid &&
-		enteredCompanyIsValid &&
-		enteredCityIsValid &&
-		profileImgIsValid &&
+		nameState.isValid &&
+		positionState.isValid &&
+		companySate.isValid &&
+		citySate.isValid &&
+		profileImageSate.isValid &&
 		fbUrlIsValid &&
 		linkdedInUrlIsValid &&
 		igUrlIsValid &&
@@ -123,11 +160,6 @@ const NewPeople = () => {
 	const formSubmitHandler = (event) => {
 		event.preventDefault();
 
-		setEnteredNameTouch(true);
-		setEnteredPositionTouch(true);
-		setEnteredCompanyTouch(true);
-		setEnteredCityTouch(true);
-		setProfileImgTouch(true);
 		setIsEntereing(false);
 
 		if (!formIsValid) {
@@ -136,13 +168,13 @@ const NewPeople = () => {
 
 		const person = {
 			avatar: profileImgName,
-			city: enteredCity,
+			city: citySate.value,
 			id: Math.random(),
-			company: enteredCompany,
+			company: companySate.value,
 			isContact: false,
 			isFavorite: false,
-			name: enteredName,
-			position: enteredPosition,
+			name: nameState.value,
+			position: positionState.value,
 			social_networks: {
 				facebook: fbUrl,
 				instagram: igUrl,
@@ -156,27 +188,22 @@ const NewPeople = () => {
 		// post to people
 		dispatch(addOnePeople(person));
 
-		setEnteredName('');
-		setEnteredPosition('');
-		setEnteredCompany('');
-		setEnteredCity('');
-		setProfileImg(null);
+		dispatchName({});
+		dispatchPosition({});
+		dispatchCompany({});
+		dispatchCity({});
+		dispatchProfileImage({});
+
 		setProfileImgName('');
 		setFbUrl('');
 		setLinkdedInUrl('');
 		setIgUrl('');
 		setTwtUrl('');
-
-		setEnteredNameTouch(false);
-		setEnteredPositionTouch(false);
-		setEnteredCompanyTouch(false);
-		setEnteredCityTouch(false);
-		setProfileImgTouch(false);
 	};
 
 	const uploadImage = () => {
 		const formData = new FormData();
-		formData.append('myfile', profileImg, profileImgName);
+		formData.append('myfile', profileImageSate.value, profileImgName);
 
 		// axios.post('assets/images', formData);
 	};
@@ -208,7 +235,7 @@ const NewPeople = () => {
 							type="text"
 							placeholder="Enter name"
 							className={nameInputIsInvalid ? 'invalid' : ''}
-							value={enteredName}
+							value={nameState.value}
 							onChange={nameOnChangeHandler}
 							onBlur={nameOnBlurHandler}
 						/>
@@ -225,7 +252,7 @@ const NewPeople = () => {
 							type="text"
 							placeholder="Enter position"
 							className={positionInputIsInvalid ? 'invalid' : ''}
-							value={enteredPosition}
+							value={positionState.value}
 							onChange={positionOnChangeHandler}
 							onBlur={positionOnBlurHandler}
 						/>
@@ -243,7 +270,7 @@ const NewPeople = () => {
 							type="text"
 							placeholder="Enter company"
 							className={companyInputIsInvalid ? 'invalid' : ''}
-							value={enteredCompany}
+							value={companySate.value}
 							onChange={companyOnChangeHandler}
 							onBlur={companyOnBlurHandler}
 						/>
@@ -260,7 +287,7 @@ const NewPeople = () => {
 							type="text"
 							placeholder="Enter city"
 							className={cityInputIsInvalid ? 'invalid' : ''}
-							value={enteredCity}
+							value={citySate.value}
 							onChange={cityOnChangeHandler}
 							onBlur={cityOnBlurHandler}
 						/>
